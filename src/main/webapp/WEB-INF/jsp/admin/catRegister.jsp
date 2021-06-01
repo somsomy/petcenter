@@ -11,7 +11,6 @@
 <link href='<c:url value="/css/subpage.css" />' rel="stylesheet" type="text/css">
 <link href='<c:url value="/css/board/findUpdate.css" />' rel="stylesheet" type="text/css">
 
- <script defer src="../script/imageUpload.js"></script>
 </head>
 <body>
 <div id="wrap">

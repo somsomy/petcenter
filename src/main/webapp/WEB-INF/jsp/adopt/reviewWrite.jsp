@@ -10,7 +10,6 @@
 <link href='<c:url value="/css/subpage.css" />' rel="stylesheet" type="text/css">
 <link href='<c:url value="/css/content.css" />' rel="stylesheet" type="text/css">
 
-<script defer src="../script/imageUpload.js"></script>
 </head>
 <body>
 <div id="wrap">

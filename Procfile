@@ -1,1 +1,1 @@
-"web: Run serve --env production --hostname 0.0.0.0 --port \$PORT"
+web: java -jar target/myapp-1.0.0.jar
