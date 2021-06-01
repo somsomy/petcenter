@@ -1,1 +1,1 @@
-"web: Run serve --env production --hostname 0.0.0.0 --port \$PORT" 
+"web : java -Dserver.port = $ PORT $ JAVA_OPTS -war target / *. war"
