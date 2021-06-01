@@ -1,1 +1,1 @@
-web : java $ JAVA_OPTS -Dserver.port = $ PORT -war target / *.war
+web: java -war target/petcenter-0.0.1-SNAPSHOT.war
