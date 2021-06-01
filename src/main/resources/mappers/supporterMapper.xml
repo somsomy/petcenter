@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.somsomy.mapper.SupporterMapper">
+
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from supporter
+	</select>
+	
+	<insert id="insertSupporter">
+		insert into supporter
+		values(#{num}, #{userid}, #{catId}, #{supportType}, #{donation}, #{yearDonation}, #{payment}, #{payNum}, #{supportStart}, #{ownerName}, #{date})	
+	</insert>
+	
+	<select id="getMyCatsCount" resultType="java.lang.Integer">
+		select count(*) from supporter where userid=#{id}
+	</select>
+	
+	<select id="getMyCatsList" resultType="com.somsomy.domain.SupporterCatsBean">
+		select * from supporter
+		join cats on supporter.catid = cats.catid
+		where userid=#{id} order by cats.catid desc limit #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="getSupporter" resultType="com.somsomy.domain.SupporterCatsBean">
+		select * from supporter
+		join cats on supporter.catid = cats.catid
+		where num=#{num}
+	</select>
+	
+	<update id="updateSupporter">
+		update supporter set supporttype=#{supportType}, donation=#{donation}, yearDonation=#{yearDonation}, payment=#{payment}, paynum=#{payNum}, supportstart=#{supportStart}, ownername=#{ownerName}
+		where num=#{num}
+	</update>
+	
+	<delete id="deleteSupporter">
+		delete from supporter where num=#{num}
+	</delete>
+
+</mapper>

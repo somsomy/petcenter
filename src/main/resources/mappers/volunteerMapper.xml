@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.somsomy.mapper.VolunteerMapper">
+	<select id="getVolunteerCount" resultType="java.lang.Integer">
+		select count(*) from volunteer
+	</select>
+	
+	<select id="getVolunteerReplyCount" resultType="java.lang.Integer">
+		select count(*) from reply where boardnum=#{num}
+	</select>
+	
+	<select id="getVolunteerList" resultType="com.somsomy.domain.VolunteerBean">
+		select v.num, v.state, v.name, v.subject, v.content, v.file, v.date, v.readcount, count(reply.num) replycount
+		from volunteer v
+		left outer join reply on v.num = reply.boardnum
+		group by v.num
+		order by num desc limit #{startRow}, #{pageSize}
+	</select>
+	
+	<insert id="writeVolunteer">
+		insert into volunteer
+		values(#{num},#{state},#{name},#{subject},#{content},#{file},#{date},#{readcount})
+	</insert>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from volunteer
+	</select>
+	
+	<update id="updateReadcount">
+		update volunteer set readcount = readcount+1 where num=#{num}
+	</update>
+	
+	<select id="getVolunteerReplyList" resultType="com.somsomy.domain.VolunteerReplyBean">
+		select v.num, v.state, v.name, v.subject, v.content, v.file, v.date, v.readcount,
+			   r.num repnum, r.boardnum repboardnum, re_ref, re_lev, re_seq, r.name repname, r.content repcontent, r.date repdate, r.delete_at deleteAt
+		from volunteer v
+		left outer join reply r on v.num = r.boardnum
+		where v.num=#{num}
+		order by re_ref desc, re_seq asc limit #{startRow}, #{pageSize}	
+	</select>
+	
+	<select id="getVolunteer" resultType="com.somsomy.domain.VolunteerBean">
+		select * from volunteer where num=#{num}
+	</select>
+	
+	<update id="updateVolunteer">
+		update volunteer set state=#{state}, subject=#{subject}, content=#{content}, file=#{file} where num=#{num}
+	</update>
+	
+	<delete id="deleteVolunteer">
+		delete from volunteer where num=#{num}
+	</delete>
+	
+	<delete id="deleteReply">
+		delete from reply where boardnum=#{num}
+	</delete>
+
+</mapper>

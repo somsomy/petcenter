@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.somsomy.mapper.ReplyMapper">
+
+	<select id="getReplyMaxNum" resultType="java.lang.Integer">
+		select max(num) from reply
+	</select>
+	
+	<select id="getRerefMaxNum" resultType="java.lang.Integer">
+		select max(re_ref) from reply where boardnum=#{boardNum}
+	</select>
+	
+	<insert id="writeReply">
+		insert into reply(num, boardnum, re_ref, re_lev, re_seq, name, content, date)
+		values(#{num},#{boardNum},#{reRef},#{reLev},#{reSeq},#{name},#{content},#{date})
+	</insert>
+	
+	<update id="updateReply">
+		update reply set content=#{content} where num=#{num}
+	</update>
+	
+	<select id="getReplyList" resultType="com.somsomy.domain.ReplyBean">
+		select * from reply where boardnum=#{num} order by re_ref desc, re_seq asc limit #{startRow}, #{pageSize}
+	</select>
+	
+	<delete id="deleteReply">
+		delete from reply where num=#{num}
+	</delete>
+	
+	<update id="updateReseq">
+		update reply set re_seq=re_seq+1 where boardnum=#{boardNum} and re_ref=#{reRef} and re_seq>#{reSeq}
+	</update>
+	
+</mapper>

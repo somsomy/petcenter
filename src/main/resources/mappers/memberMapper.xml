@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.somsomy.mapper.MemberMapper">
+	
+	<select id="userCheck" resultType="com.somsomy.domain.MemberBean">
+		select * from member where id=#{id} and pass=#{pass}
+	</select>
+
+	<select id="getMember" resultType="com.somsomy.domain.MemberBean">
+		select * from member where id=#{id}
+	</select>
+
+	<select id="findByNick" resultType="com.somsomy.domain.MemberBean">
+		select * from member where nick=#{nick} and not id=#{id}
+	</select>
+	
+	<insert id="join">
+		insert into member
+		values(#{id},#{pass},#{name},#{nick},#{email},#{phone},#{postCode},#{address},#{detailAddress},#{date}) 
+	</insert>
+	
+	<update id="memberUpdate">
+		update member set name=#{name}, nick=#{nick}, email=#{email}, phone=#{phone}, postcode=#{postCode}, address=#{address}, detailAddress=#{detailAddress} where id=#{id}
+	</update>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.somsomy.mapper.ReviewMapper">
+
+	<select id="getReviewMaxNum" resultType="java.lang.Integer">
+		select max(num) from comboard
+	</select>
+	
+	<select id="getReviewList" resultType="com.somsomy.domain.ReviewBean">
+		select * from comboard order by num desc limit #{startRow}, #{pageSize}
+	</select>
+	
+	<insert id="writeReview">
+		insert into comboard
+		values(#{num}, NULL, #{fileRealName}, #{subject}, #{content}, #{name}, #{date}, #{readcount})
+	</insert>
+	
+	<select id="getReview" resultType="com.somsomy.domain.ReviewBean">
+		select * from comboard where num=#{num}
+	</select>
+	
+	<update id="updateReview">
+		update comboard set filerealname=#{fileRealName}, subject=#{subject}, content=#{content} where num=#{num}
+	</update>
+	
+	<delete id="deleteReview">
+		delete from comboard where num=#{num}
+	</delete>
+</mapper>
