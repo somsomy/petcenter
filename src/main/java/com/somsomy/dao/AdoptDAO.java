@@ -21,4 +21,5 @@ public interface AdoptDAO {
 
 	void deleteAdopt(int num);
 
+  Integer getAdoptCount();
 }

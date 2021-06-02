@@ -19,4 +19,5 @@ public interface ReviewDAO {
 
 	void deleteReview(int num);
 
+  Integer getReviewCount();
 }

@@ -65,4 +65,9 @@ public class AdoptServiceimpl implements AdoptService {
 		adoptDAO.deleteAdopt(num);
 	}
 
+	@Override
+	public Integer getAdoptCount() {
+		return adoptDAO.getAdoptCount();
+	}
+
 }

@@ -11,7 +11,7 @@ import com.somsomy.domain.PageBean;
 import com.somsomy.domain.ReviewBean;
 
 @Repository
-public class ReivewDAOImpl implements ReviewDAO {
+public class ReviewDAOImpl implements ReviewDAO {
 	@Inject
 	private SqlSession sqlSession;
 	private static final String namespace = "com.somsomy.mapper.ReviewMapper";
@@ -38,6 +38,11 @@ public class ReivewDAOImpl implements ReviewDAO {
 	@Override
 	public void deleteReview(int num) {
 		sqlSession.delete(namespace + ".deleteReview", num);
+	}
+
+	@Override
+	public Integer getReviewCount() {
+		return sqlSession.selectOne(namespace + ".getReviewCount");
 	}
 
 

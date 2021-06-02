@@ -19,4 +19,5 @@ public interface ReviewService {
 
 	void deleteReview(int num);
 
+  Integer getReviewCount();
 }

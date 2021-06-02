@@ -22,4 +22,5 @@ public interface AdoptService {
 
 	void deleteAdopt(int num);
 
+  Integer getAdoptCount();
 }

@@ -8,7 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getReviewMaxNum" resultType="java.lang.Integer">
 		select max(num) from comboard
 	</select>
-	
+
+	<select id="getReviewCount" resultType="java.lang.Integer">
+		select count (*) from comboard
+	</select>
+
 	<select id="getReviewList" resultType="com.somsomy.domain.ReviewBean">
 		select * from comboard order by num desc limit #{startRow}, #{pageSize}
 	</select>

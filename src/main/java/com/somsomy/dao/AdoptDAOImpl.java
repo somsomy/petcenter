@@ -51,4 +51,9 @@ public class AdoptDAOImpl implements AdoptDAO {
 		sqlSession.delete(namespace + ".deleteAdopt", num);
 	}
 
+	@Override
+	public Integer getAdoptCount() {
+		return sqlSession.selectOne(namespace + ".getAdoptCount");
+	}
+
 }

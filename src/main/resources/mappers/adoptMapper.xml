@@ -7,6 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMaxNum" resultType="java.lang.Integer">
 		select max(num) from adoptboard
 	</select>
+
+	<select id="getAdoptCount" resultType="java.lang.Integer">
+		select count (*) from adoptboard
+	</select>
 	
 	<select id="getBoardList" resultType="com.somsomy.domain.AdoptBean">
 		select * from adoptboard order by num desc limit #{startRow}, #{pageSize}

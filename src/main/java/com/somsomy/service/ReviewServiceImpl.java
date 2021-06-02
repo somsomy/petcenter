@@ -58,4 +58,9 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewDAO.deleteReview(num);
 	}
 
+	@Override
+	public Integer getReviewCount() {
+		return reviewDAO.getReviewCount();
+	}
+
 }

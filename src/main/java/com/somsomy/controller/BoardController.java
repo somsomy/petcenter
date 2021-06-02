@@ -77,7 +77,7 @@ public class BoardController {
 			pb.setPageNum(request.getParameter("pageNum"));
 		}
 		
-		pb.setCount(adoptService.getMaxNum());
+		pb.setCount(adoptService.getAdoptCount());
 		
 		List<AdoptBean> abList = adoptService.getBoardList(pb);
 		
@@ -169,7 +169,7 @@ public class BoardController {
 			pb.setPageNum(request.getParameter("pageNum"));
 		}
 		
-		pb.setCount(reviewService.getReviewMaxNum());
+		pb.setCount(reviewService.getReviewCount());
 		
 		List<ReviewBean> rbList = reviewService.getReviewList(pb);
 		
