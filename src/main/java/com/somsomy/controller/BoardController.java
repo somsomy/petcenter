@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -63,8 +64,8 @@ public class BoardController {
 		
 		return "adopt/adoptInfo";
 	}
-	
-	@RequestMapping(value = "/adopt", method = RequestMethod.GET)
+
+	@GetMapping("/adopt")
 	public String adopt(HttpServletRequest request, Model model) {
 		
 		PageBean pb = new PageBean();
@@ -85,8 +86,8 @@ public class BoardController {
 
 		return "adopt/adopt";
 	}
-	
-	@RequestMapping(value = "/adopt/write", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/write")
 	public String adoptWrite(HttpSession session, Model model) {
 		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
 		PageBean pb = new PageBean();
@@ -100,8 +101,8 @@ public class BoardController {
 		
 		return "adopt/adoptWrite";
 	}
-	
-	@RequestMapping(value = "/adopt/write", method = RequestMethod.POST)
+
+	@PostMapping("/adopt/write")
 	public String adoptWritePost(AdoptBean ab) {
 		
 		adoptService.writeAdopt(ab);
@@ -109,8 +110,7 @@ public class BoardController {
 		return "redirect:/adopt";
 	}
 	
-	
-	@RequestMapping(value = "/adopt/content", method = RequestMethod.GET)
+	@GetMapping("/adopt/content")
 	public String adoptContent(HttpServletRequest request, HttpSession session, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
@@ -123,8 +123,8 @@ public class BoardController {
 
 		return "adopt/adoptContent";
 	}
-	
-	@RequestMapping(value = "/adopt/update", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/update")
 	public String adoptUpdate(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		AdoptBean ab = adoptService.getAdopt(num);
@@ -139,16 +139,16 @@ public class BoardController {
 
 		return "adopt/adoptUpdate";
 	}
-	
-	@RequestMapping(value = "/adopt/update", method = RequestMethod.POST)
+
+	@PostMapping("/adopt/update")
 	public String adoptUpdatePost(AdoptBean ab) {
 		
 		adoptService.updateAdopt(ab);
 		
 		return "redirect:/adopt";
 	}
-	
-	@RequestMapping(value = "/adopt/delete", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/delete")
 	public String adoptDelete(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
 
@@ -157,8 +157,7 @@ public class BoardController {
 		return "redirect:/adopt";
 	}
 	
-	
-	@RequestMapping(value = "/adopt/review", method = RequestMethod.GET)
+	@GetMapping("/adopt/review")
 	public String adoptReview(HttpServletRequest request, Model model) {
 		
 		PageBean pb = new PageBean();
@@ -179,8 +178,8 @@ public class BoardController {
 		
 		return "adopt/review";
 	}
-	
-	@RequestMapping(value = "/adopt/review/write", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/review/write")
 	public String adoptReviewWrite(HttpSession session, Model model) {
 		
 		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
@@ -188,8 +187,8 @@ public class BoardController {
 		model.addAttribute("mb", mb);
 		return "adopt/reviewWrite";
 	}
-	
-	@RequestMapping(value = "/adopt/review/write", method = RequestMethod.POST)
+
+	@PostMapping("/adopt/review/write")
 	public String adoptReviewWritePost(HttpServletRequest request, MultipartFile file) throws Exception{
 		UUID uid = UUID.randomUUID();
 		String saveName = null;
@@ -210,8 +209,8 @@ public class BoardController {
 		
 		return "redirect:/adopt/review";
 	}
-	
-	@RequestMapping(value = "/adopt/review/content", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/review/content")
 	public String adoptReviewContent(HttpServletRequest request, HttpSession session, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
@@ -223,8 +222,8 @@ public class BoardController {
 		
 		return "adopt/reviewContent";
 	}
-	
-	@RequestMapping(value = "/adopt/review/update", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/review/update")
 	public String adoptReviewUpdate(HttpServletRequest request, HttpSession session, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
@@ -233,8 +232,8 @@ public class BoardController {
 		model.addAttribute("rb", rb);
 		return "adopt/reviewUpdate";
 	}
-	
-	@RequestMapping(value = "/adopt/review/update", method = RequestMethod.POST)
+
+	@PostMapping("/adopt/review/update")
 	public String adoptReviewUpdatePost(HttpServletRequest request, MultipartFile file) throws Exception{
 		String saveName = null;
 		
@@ -258,8 +257,8 @@ public class BoardController {
 		
 		return "redirect:/adopt/review";
 	}
-	
-	@RequestMapping(value = "/adopt/review/delete", method = RequestMethod.GET)
+
+	@GetMapping("/adopt/review/delete")
 	public String adoptReviewDelete(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
 
@@ -267,8 +266,8 @@ public class BoardController {
 		
 		return "redirect:/adopt/review";
 	}
-	
-	@RequestMapping(value = "/cats", method = RequestMethod.GET)
+
+	@GetMapping("/cats")
 	public String protectedCats(HttpServletRequest request, Model model) {
 		
 		String state = request.getParameter("state");
@@ -292,8 +291,8 @@ public class BoardController {
 		
 		return "adopt/cats";
 	}
-	
-	@RequestMapping(value = "/cats/content", method = RequestMethod.GET)
+
+	@GetMapping("/cats/content")
 	public String catsContent(HttpServletRequest request, HttpSession session, Model model) {
 		int catId = Integer.parseInt(request.getParameter("catId"));
 		

@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -17,14 +19,14 @@ public class MemberController {
 	
 	@Inject
 	private MemberService memberService;
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+
+	@GetMapping("/login")
 	public String login() {
 		
 		return "member/login";
 	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+
+	@PostMapping("/login")
 	public String loginPost(MemberBean mb, HttpSession session, Model model) {
 		
 		MemberBean loginMb = memberService.userCheck(mb);
@@ -37,27 +39,27 @@ public class MemberController {
 			return "member/msg";
 		}
 	}
-	
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		
 		return "redirect:/main";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	@GetMapping("/join")
 	public String join() {
 		
 		return "member/join";
 	}
-	
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
+
+	@PostMapping("/join")
 	public String joinPost(MemberBean mb) {
 		memberService.join(mb);
 		return "redirect:/login";
 	}
-	
-	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
+
+	@GetMapping("/mypage")
 	public String myPage(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("id");
 		

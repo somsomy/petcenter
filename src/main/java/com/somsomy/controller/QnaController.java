@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,8 +26,8 @@ public class QnaController {
 	private QnaService qnaService;
 	@Inject
 	private MemberService memberService;
-	
-	@RequestMapping(value = "/qna", method = RequestMethod.GET)
+
+	@GetMapping("/qna")
 	public String qna(HttpServletRequest request, Model model) {
 		PageBean pb = new PageBean();
 		pb.setPageSize(15);
@@ -45,8 +47,8 @@ public class QnaController {
 		
 		return "qna/qna";
 	}
-	
-	@RequestMapping(value = "/qna/write", method = RequestMethod.GET)
+
+	@GetMapping("/qna/write")
 	public String qnaWrite(HttpSession session, Model model) {
 		String id = (String) session.getAttribute("id");
 		
@@ -58,16 +60,16 @@ public class QnaController {
 			return "qna/qnaWrite";
 		}
 	}
-	
-	@RequestMapping(value = "/qna/write", method = RequestMethod.POST)
+
+	@PostMapping("/qna/write")
 	public String qnaWritePost(QnaBean qb, Model model) {
 
 		qnaService.writeQna(qb);
 		
 		return "redirect:/qna";
 	}
-	
-	@RequestMapping(value = "/qna/content", method = RequestMethod.GET)
+
+	@GetMapping("/qna/content")
 	public String qnaContent(HttpServletRequest request, HttpSession session, Model model) {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -85,16 +87,16 @@ public class QnaController {
 
 		return "qna/qnaContent";
 	}
-	
-	@RequestMapping(value = "/qna/update", method = RequestMethod.POST)
+
+	@PostMapping("/qna/update")
 	public String qnaUpdatePost(QnaBean qb) {
 		
 		qnaService.updateQna(qb);
 		
 		return "redirect:/qna";
 	}
-	
-	@RequestMapping(value = "/qna/update", method = RequestMethod.GET)
+
+	@GetMapping("/qna/update")
 	public String qnaUpdate(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 
@@ -103,8 +105,8 @@ public class QnaController {
 		
 		return "qna/qnaUpdate";
 	}
-	
-	@RequestMapping(value = "/qna/delete", method = RequestMethod.GET)
+
+	@GetMapping("/qna/delete")
 	public String qnaDelete(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
 
@@ -112,8 +114,8 @@ public class QnaController {
 		
 		return "redirect:/qna";
 	}
-	
-	@RequestMapping(value = "/qna/reply", method = RequestMethod.GET)
+
+	@GetMapping("/qna/reply")
 	public String qnaReply(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 
@@ -121,8 +123,8 @@ public class QnaController {
 		model.addAttribute("qb", qb);
 		return "qna/qnaReply";
 	}
-	
-	@RequestMapping(value = "/qna/reply", method = RequestMethod.POST)
+
+	@PostMapping("/qna/reply")
 	public String qnaReplyPost(QnaBean qb) {
 		
 		qnaService.reWriteQna(qb);

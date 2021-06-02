@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,8 +35,8 @@ public class VolunteerController {
 	
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-	
-	@RequestMapping(value = "/volunteer", method = RequestMethod.GET)
+
+	@GetMapping("/volunteer")
 	public String volunteer(HttpServletRequest request, Model model) {
 		
 		PageBean pb = new PageBean();
@@ -55,14 +57,14 @@ public class VolunteerController {
 		
 		return "volunteer/volunteer";
 	}
-	
-	@RequestMapping(value = "/volunteer/write", method = RequestMethod.GET)
+
+	@GetMapping("/volunteer/write")
 	public String volunteerWrite() {
 		
 		return "volunteer/volunteerWrite";
 	}
-	
-	@RequestMapping(value = "/volunteer/write", method = RequestMethod.POST)
+
+	@PostMapping("/volunteer/write")
 	public String volunteerWritePost(HttpServletRequest request, MultipartFile file) throws Exception {
 		UUID uid = UUID.randomUUID();
 		String saveName = null;
@@ -84,8 +86,8 @@ public class VolunteerController {
 		
 		return "redirect:/volunteer";
 	}
-	
-	@RequestMapping(value = "/volunteer/content", method = RequestMethod.GET)
+
+	@GetMapping("/volunteer/content")
 	public String volunteerContent(HttpServletRequest request, HttpSession session, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		String id = (String) session.getAttribute("id");
@@ -114,8 +116,8 @@ public class VolunteerController {
 		
 		return "volunteer/volunteerContent";
 	}
-	
-	@RequestMapping(value = "/volunteer/update", method = RequestMethod.GET)
+
+	@GetMapping("/volunteer/update")
 	public String volunteerUpdate(HttpServletRequest request, Model model) {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -126,8 +128,8 @@ public class VolunteerController {
 		
 		return "volunteer/volunteerUpdate";
 	}
-	
-	@RequestMapping(value = "/volunteer/update", method = RequestMethod.POST)
+
+	@PostMapping("/volunteer/update")
 	public String volunteerUpdatePost(HttpServletRequest request, MultipartFile file) throws Exception{
 		String saveName = null;
 		
@@ -152,8 +154,8 @@ public class VolunteerController {
 		
 		return "redirect:/volunteer";
 	}
-	
-	@RequestMapping(value = "/volunteer/delete", method = RequestMethod.GET)
+
+	@GetMapping("/volunteer/delete")
 	public String volunteerDelete(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		String file = uploadPath + request.getParameter("file");

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -31,7 +33,7 @@ public class SupportController {
 	@Inject
 	private MemberService memberService;
 
-	@RequestMapping(value = "/support", method = RequestMethod.GET)
+	@GetMapping("/support")
 	public String support(HttpServletRequest request, Model model) {
 		
 		PageBean pb = new PageBean();
@@ -52,8 +54,8 @@ public class SupportController {
 		
 		return "support/supportList";
 	}
-	
-	@RequestMapping(value = "/support/content", method = RequestMethod.GET)
+
+	@GetMapping("/support/content")
 	public String supportContent(HttpServletRequest request, HttpSession session, Model model) {
 		
 		int catId = Integer.parseInt(request.getParameter("catId"));
@@ -67,8 +69,8 @@ public class SupportController {
 		
 		return "support/support";
 	}
-	
-	@RequestMapping(value = "/support/content", method = RequestMethod.POST)
+
+	@PostMapping("/support/content")
 	public String supportContent2(HttpServletRequest request, HttpSession session, SupporterBean sb, Model model) {
 		
 		int catId = Integer.parseInt(request.getParameter("catId"));
@@ -83,8 +85,8 @@ public class SupportController {
 		
 		return "support/support2";
 	}
-	
-	@RequestMapping(value = "/support/complete", method = RequestMethod.POST)
+
+	@PostMapping("/support/complete")
 	public String supportComplete(HttpSession session, SupporterBean sb) {
 		sb.setUserid((String) session.getAttribute("id"));
 
@@ -92,8 +94,8 @@ public class SupportController {
 		
 		return "redirect:/support";
 	}
-	
-	@RequestMapping(value = "/mycats", method = RequestMethod.GET)
+
+	@GetMapping("/mycats")
 	public String myCats(HttpServletRequest request, HttpSession session, Model model) {
 		String id = (String) session.getAttribute("id");
 		
@@ -116,8 +118,8 @@ public class SupportController {
 		
 		return "mycats/myCats";
 	}
-	
-	@RequestMapping(value = "/mycats/content", method = RequestMethod.GET)
+
+	@GetMapping("/mycats/content")
 	public String myCatsContent(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
@@ -127,8 +129,8 @@ public class SupportController {
 		
 		return "mycats/myCatsContent";
 	}
-	
-	@RequestMapping(value = "/mycats/update", method = RequestMethod.GET)
+
+	@GetMapping("/mycats/update")
 	public String myCatsUpdate(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
@@ -138,17 +140,16 @@ public class SupportController {
 		
 		return "mycats/myCatsUpdate";
 	}
-	
-	@RequestMapping(value = "/mycats/update", method = RequestMethod.POST)
+
+	@PostMapping("/mycats/update")
 	public String myCatsUpdatePost(SupporterBean sb) {
 
 		supportService.updateSupporter(sb);
 		
 		return "redirect:/mycats";
 	}
-	
-	
-	@RequestMapping(value = "/mycats/cancel", method = RequestMethod.GET)
+
+	@GetMapping("/mycats/cancel")
 	public String myCatsCancel(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
 
