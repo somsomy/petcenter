@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +41,7 @@
 		<c:forEach var="cb" items="${cbList }">
 			<td>
 			<table onclick="location.href='<c:url value="/cats/content?catId=${cb.catId}" />'" class="ctable">
-					<tr><td><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' ></td></tr>
+					<tr><td><img src="${cb.fileRealName }" ></td></tr>
 			<tr><td>${cb.catName }</td></tr>
 			</table>
 			</td>
