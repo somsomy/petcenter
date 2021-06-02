@@ -19,10 +19,10 @@ import java.util.UUID;
 public class S3Uploader {
   private AmazonS3 s3Client;
 
-  @Value("${cloud.aws.credentials.accessKey}")
+  @Value("${cloud.aws.credentials.access-key}")
   private String ACCESS_KEY;
 
-  @Value("${cloud.aws.credentials.secretKey}")
+  @Value("${cloud.aws.credentials.secret-key}")
   private String SECRET_KEY;
 
   @Value("${cloud.aws.s3.bucket}")
