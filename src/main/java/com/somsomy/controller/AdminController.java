@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.somsomy.aws.S3Uploader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -31,7 +32,9 @@ public class AdminController {
 	private AdminService adminService;
 	@Inject
 	private CatsService catsService;
-	
+	@Inject
+	private S3Uploader s3Uploader;
+
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
@@ -142,15 +145,17 @@ public class AdminController {
 			}
 		}
 		
-		UUID uid = UUID.randomUUID();
-		String saveName = null;
+//		UUID uid = UUID.randomUUID();
+//		String saveName = null;
 
-		if(!file.getOriginalFilename().isEmpty()) {
-			saveName = uid.toString() + "_" + file.getOriginalFilename();
-			File target = new File(uploadPath,saveName);
-			FileCopyUtils.copy(file.getBytes(), target);
-			cb.setFileRealName(saveName);
-		}
+		String catImg = s3Uploader.upload(file, "admin/cats/images");
+
+//		if(!file.getOriginalFilename().isEmpty()) {
+//			saveName = uid.toString() + "_" + file.getOriginalFilename();
+//			File target = new File(uploadPath,saveName);
+//			FileCopyUtils.copy(file.getBytes(), target);
+			cb.setFileRealName(catImg);
+//		}
 		
 		catsService.registerCat(cb);
 		
