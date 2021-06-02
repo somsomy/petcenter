@@ -136,7 +136,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/admin/cats/register")
-	public String catsRegistePostr(CatsBean cb, HttpSession session, MultipartFile file) throws Exception {
+	public String catsRegisterPost(CatsBean cb, HttpSession session, MultipartFile file) throws Exception {
 		String id = (String) session.getAttribute("id");
 
 		if(id != null) {

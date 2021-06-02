@@ -42,6 +42,8 @@ public class S3Uploader {
   }
 
   public String upload(MultipartFile file, String dirname) throws IOException {
+    System.out.println("file = " + file);
+    System.out.println("BUCKET = " + BUCKET);
     String fileName = dirname + "/" + UUID.randomUUID().toString() + file.getOriginalFilename();
 
     s3Client.putObject(new PutObjectRequest(this.BUCKET, fileName, file.getInputStream(), null)
