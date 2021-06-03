@@ -47,7 +47,7 @@
 <tr><td class="td"><span>${cb.catGender }</span> 이구요.</td><td id="readtd">중성화 ${cb.catNeuter }</td></tr>
 <tr><td class="td">나이는 <span>${cb.catAge }</span> 입니다.</td><td id="readtd">접종 ${cb.catVaccination }</td></tr>
 <tr><td class="td">이곳에는 <span>${cb.catDate }</span> 에 왔어요!</td><td id="readtd">조회수 ${cb.readcount }</td></tr>
-<tr><td id="con" colspan="2" ><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' id="conimg"></td></tr>
+<tr><td id="con" colspan="2" ><img src='<c:url value="${cb.fileRealName }" />' id="conimg"></td></tr>
 <tr><td colspan="2" id="con3">${cb.catInfo }</td></tr>
 </table>
 <div id="wbtn">

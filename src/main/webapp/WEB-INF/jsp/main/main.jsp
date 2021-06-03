@@ -41,7 +41,7 @@
 		<c:forEach var="cb" items="${cbList }">
 			<td>
 			<table onclick="location.href='<c:url value="/cats/content?catId=${cb.catId}" />'" class="ctable">
-					<tr><td><img src="${cb.fileRealName }" ></td></tr>
+					<tr><td><img src='<c:url value="${cb.fileRealName }" />' /></td></tr>
 			<tr><td>${cb.catName }</td></tr>
 			</table>
 			</td>

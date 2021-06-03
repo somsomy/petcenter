@@ -47,7 +47,7 @@ ${cb.catNeuter }
 <td class="subsub">접종유무</td><td>
 ${cb.catVaccination }
 </td></tr>
-<tr><td class="subsub">이미지</td><td colspan="3"><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' width="300" height="300"></td></tr>
+<tr><td class="subsub">이미지</td><td colspan="3"><img src='<c:url value="${cb.fileRealName }" />' width="300" height="300"></td></tr>
 <tr><td class="subsub">특이사항</td><td colspan="3" id="previewId"><textarea name="catInfo" placeholder="내용을 입력해주세요." readonly>${cb.catInfo }</textarea></td></tr>
 </table>
 <div id="wbtn">
