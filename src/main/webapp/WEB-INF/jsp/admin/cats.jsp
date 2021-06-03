@@ -32,7 +32,7 @@
 <c:forEach var="cb" items="${cbList }">
 	<div class="mycats" onclick="location.href='<c:url value="/admin/cats/content?catId=${cb.catId}" />'">
 	<div class="catImg">
-	<div><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' class="mycatsImg"></div>
+	<div><img src='<c:url value="${cb.fileRealName }" />' class="mycatsImg"></div>
 	<div class="mycatsName">${cb.catName }</div>	
 	<div>등록날짜 <fmt:formatDate value="${cb.date}" type="both" pattern="yyyy-MM-dd HH:mm"/></div>	
 	</div>

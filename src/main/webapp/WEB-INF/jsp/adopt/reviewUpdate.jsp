@@ -34,7 +34,7 @@
 <tr><td class="tdtd">작성자</td><td class="tdtd"><input type="text" name="name" value="${rb.name }" id="writer" readonly></td></tr>
 <tr class="subsub"><td class="consub">내용</td><td class="consub" id="previewId">
 <c:if test="${!empty rb.fileRealName }">
-<img src='<c:url value="/upload/uploadImage/${rb.fileRealName }" />' id=conimg>
+<img src='<c:url value="${rb.fileRealName }" />' id=conimg>
 </c:if>
 <textarea name="content" placeholder="내용을 입력해주세요." id="conupdate" required>${rb.content }</textarea></td></tr>
 <tr id="abtd"><td>이미지</td><td colspan="3">

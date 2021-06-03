@@ -27,7 +27,7 @@
 <hr>
 <div id="hinfo">회원님이 후원하고 있는 고양이</div>
 <table class="mycatsTable">
-<tr><td colspan="2"><img src='<c:url value="/upload/uploadImage/${scb.fileRealName }" />' width="300" height="300"></td></tr>
+<tr><td colspan="2"><img src='<c:url value="${scb.fileRealName }" />' width="300" height="300"></td></tr>
 <tr><td class="tdtdtd">고양이 이름</td><td>${scb.catName }</td></tr>
 <tr><td class="tdtdtd">고양이 나이</td><td>${scb.catAge }</td></tr>
 <tr><td class="tdtdtd">고양이 성별</td><td>${scb.catGender }</td></tr>

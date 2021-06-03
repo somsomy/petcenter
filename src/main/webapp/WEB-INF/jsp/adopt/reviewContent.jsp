@@ -32,7 +32,7 @@
 <tr><td colspan="2" id="write">${rb.name }</td></tr>
 <tr><td class="tdtdtd">  작성일 <fmt:formatDate value="${rb.date}" type="both" pattern="yyyy.MM.dd HH:mm"/></td><td id="readtdtd">조회수 ${rb.readcount }</td></tr>
 <c:if test="${!empty rb.fileRealName }">
-<tr><td colspan="2" id="con2"><img src='<c:url value="/upload/uploadImage/${rb.fileRealName }" />' id=conimg></td></tr>
+<tr><td colspan="2" id="con2"><img src='<c:url value="${rb.fileRealName }" />' id=conimg></td></tr>
 </c:if>
 <tr><td colspan="2" id="con3">${rb.content }</td></tr>
 </table>

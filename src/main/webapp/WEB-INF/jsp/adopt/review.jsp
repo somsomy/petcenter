@@ -32,7 +32,7 @@
 	<td rowspan="2" id="itd">
 	<c:choose>
 		<c:when test="${!empty rb.fileRealName }">
-			<img src='<c:url value="/upload/uploadImage/${rb.fileRealName }" />' width="60" height="60">		
+			<img src='<c:url value="${rb.fileRealName }" />' width="60" height="60">
 		</c:when>
 		<c:otherwise>
 			<img src='<c:url value="/images/board/image.png" />' width="60" height="60">	

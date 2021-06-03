@@ -34,7 +34,7 @@
 <c:forEach var="scb" items="${scbList }">
 	<div class="mycats" onclick="location.href='<c:url value="/mycats/content?num=${scb.num}" />'">
 	<div class="catImg">
-	<div><img src='<c:url value="/upload/uploadImage/${scb.fileRealName }" />' class="mycatsImg"></div>
+	<div><img src='<c:url value="${scb.fileRealName }" />' class="mycatsImg"></div>
 	<div class="mycatsName">행복한 고양이 ${scb.catName }</div>		
 	</div>
 	</div>

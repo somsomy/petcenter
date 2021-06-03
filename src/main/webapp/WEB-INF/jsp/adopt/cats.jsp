@@ -46,7 +46,7 @@
 <c:forEach var="cb" items="${cbList }">
 	<div class="mycats" onclick="location.href='<c:url value="/cats/content?catId=${cb.catId}" />'">
 	<div class="catImg">
-	<div><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' class="mycatsImg"></div>
+	<div><img src='<c:url value="${cb.fileRealName }" />' class="mycatsImg"></div>
 	<div class="mycatsName">${cb.catName }</div>	
 	<div>등록날짜 <fmt:formatDate value="${cb.date}" type="both" pattern="yyyy-MM-dd HH:mm"/></div>	
 	</div>
@@ -58,7 +58,7 @@
 <form action="catsSearch.jsp" method="get">
 <div id="divSearch">
 <input type="text" name="search" placeholder=" Search" class="input_box" >
-<button><img src='<c:url value="/resources/images/search.png" />' id="searchImg"></button>
+<button><img src='<c:url value="/images/search.png" />' id="searchImg"></button>
 </div>
 </form>
 </div>

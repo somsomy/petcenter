@@ -27,7 +27,7 @@
 <hr>
 <c:forEach var="cb" items="${cbList }">
 	<table>
-	<tr><td rowspan="2" id="catimg"><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' width="300" height="300"></td>
+	<tr><td rowspan="2" id="catimg"><img src='<c:url value="${cb.fileRealName }" />' width="300" height="300"></td>
 	<td>안녕하새오! 나는 <span id="catName">${cb.catName }</span> 이애옹.</td>
 	<td><input type="button" value="고양이 정보" class="supBtn" onclick="location.href='<c:url value="/cats/content?catId=${cb.catId}" />'" ></td></tr>
 	<tr><td class="info">입소날짜 : <fmt:formatDate value="${cb.date}" type="both" pattern="yyyy.MM.dd"/> | 나이 : ${cb.catAge }</td>
@@ -39,7 +39,7 @@
 <form action="supportCatsearch.jsp" method="get">
 <div id="divSearch">
 <input type="text" name="search" placeholder=" Search" class="input_box" >
-<button><img src='<c:url value="/resources/images/search.png" />'  id="searchImg"></button>
+<button><img src='<c:url value="/images/search.png" />'  id="searchImg"></button>
 </div>
 </form>
 </div>

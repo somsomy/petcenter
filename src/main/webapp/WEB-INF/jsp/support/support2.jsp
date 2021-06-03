@@ -29,7 +29,7 @@
 <input type="hidden" name="catId" value="${cb.catId }">
 <input type="hidden" name="id" value="${sessionScope.id }">
 <table class="table1">
-	<tr><td rowspan="2"><img src='<c:url value="/upload/uploadImage/${cb.fileRealName }" />' width="300" height="300"></td>
+	<tr><td rowspan="2"><img src='<c:url value="${cb.fileRealName }" />' width="300" height="300"></td>
 	<td>${cb.catName }</td></tr>
 	<tr><td>입소날짜 : <fmt:formatDate value="${cb.date}" type="both" pattern="yyyy.MM.dd"/> | 나이 : ${cb.catAge } | 성별 : ${cb.catGender }</td></tr>
 </table>
