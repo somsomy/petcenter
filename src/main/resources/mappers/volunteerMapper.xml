@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getVolunteerReplyList" resultType="com.somsomy.domain.VolunteerReplyBean">
 		select v.num, v.state, v.name, v.subject, v.content, v.file, v.date, v.readcount,
-			   r.num repnum, r.boardnum repboardnum, re_ref, re_lev, re_seq, r.name repname, r.content repcontent, r.date repdate, r.delete_at deleteAt
+			   r.num repnum, r.boardnum repboardnum, re_ref, re_lev, re_seq, r.name repname, r.content repcontent, r.date repdate
 		from volunteer v
 		left outer join reply r on v.num = r.boardnum
 		where v.num=#{num}

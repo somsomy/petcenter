@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getAdoptCount" resultType="java.lang.Integer">
-		select count (*) from adoptboard
+		select count(*) from adoptboard
 	</select>
 	
 	<select id="getBoardList" resultType="com.somsomy.domain.AdoptBean">

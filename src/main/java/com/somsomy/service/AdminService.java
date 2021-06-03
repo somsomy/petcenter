@@ -12,4 +12,8 @@ public interface AdminService {
 	public void writeNotice(NoticeBean nb);
 	public NoticeBean getNotice(int num);
 	public void updateReadcount(int num);
+
+  void updateNotice(NoticeBean nb);
+
+	void deleteNotice(int num);
 }

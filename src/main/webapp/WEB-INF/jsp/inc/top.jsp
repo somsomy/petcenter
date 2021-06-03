@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"><header>
 	
 <c:if test="${empty sessionScope.id }">
-	<div id="login"><a href='<c:url value="/main" />' >홈 | </a> <a href='<c:url value="/login" />' >로그인</a> | <a href='<c:url value="/join" />' >회원가입</a></div>
+	<div id="login"><a href='<c:url value="/" />' >홈 | </a> <a href='<c:url value="/login" />' >로그인</a> | <a href='<c:url value="/join" />' >회원가입</a></div>
 </c:if>
 <c:if test="${!(empty sessionScope.id) }">
 	<div id="login">${sessionScope.id }님 | <a href='<c:url value="/logout" />' >로그아웃</a> | 
@@ -29,7 +29,7 @@
 
 <div class="clear"></div>
 <hr color="#EAEAEA">
-<div id="logo"><a href='<c:url value="/main" />' ><img src='<c:url value="/images/logo.png" />' width="280" height="75" alt="Fun Web"></a></div>
+<div id="logo"><a href='<c:url value="/" />' ><img src='<c:url value="/images/logo.png" />' width="280" height="75" alt="Fun Web"></a></div>
 
 <nav id="top_menu">
 <ul class="tmenu">

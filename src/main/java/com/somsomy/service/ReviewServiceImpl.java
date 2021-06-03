@@ -63,4 +63,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.getReviewCount();
 	}
 
+	@Override
+	public void updateReadcount(int num) {
+		reviewDAO.updateReadcount(num);
+	}
+
 }

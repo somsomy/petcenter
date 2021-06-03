@@ -45,5 +45,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.selectOne(namespace + ".getReviewCount");
 	}
 
+	@Override
+	public void updateReadcount(int num) {
+		sqlSession.update(namespace + ".updateReadcount", num);
+	}
+
 
 }

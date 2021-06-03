@@ -29,6 +29,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateReadcount">
 		update notice set readcount = readcount + 1 where num = #{num}
 	</update>
-	
-	
+
+	<update id="updateNotice">
+		update notice set subject=#{subject}, content=#{content} where num=#{num}
+	</update>
+
+	<delete id="deleteNotice">
+		delete from notice where num=#{num}
+	</delete>
 </mapper>

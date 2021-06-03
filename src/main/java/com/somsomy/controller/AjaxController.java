@@ -8,20 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.somsomy.service.AdminService;
 import com.somsomy.service.MemberService;
 import com.somsomy.service.ReplyService;
 import com.somsomy.service.VolunteerService;
 import com.somsomy.domain.FindPageBean;
 import com.somsomy.domain.MemberBean;
-import com.somsomy.domain.NoticeBean;
-import com.somsomy.domain.PageBean;
 import com.somsomy.domain.ReplyBean;
 
 

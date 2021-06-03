@@ -1,6 +1,5 @@
 package com.somsomy.controller;
 
-import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,13 +8,11 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.somsomy.aws.S3Uploader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.somsomy.domain.FindPageBean;
@@ -32,9 +29,8 @@ public class VolunteerController {
 	private VolunteerService volunteerService;
 	@Inject
 	private MemberService memberService;
-	
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+	@Inject
+	private S3Uploader s3Uploader;
 
 	@GetMapping("/volunteer")
 	public String volunteer(HttpServletRequest request, Model model) {
@@ -76,9 +72,7 @@ public class VolunteerController {
 		vb.setContent(request.getParameter("content"));
 		
 		if(!file.getOriginalFilename().isEmpty()) {
-			saveName = uid.toString() + "_" + file.getOriginalFilename();
-			File target = new File(uploadPath,saveName);
-			FileCopyUtils.copy(file.getBytes(), target);
+			saveName = s3Uploader.upload(file, "upload");
 			vb.setFile(saveName);
 		}
 		
@@ -134,11 +128,7 @@ public class VolunteerController {
 		String saveName = null;
 		
 		if(!file.isEmpty()) {
-			UUID uid=UUID.randomUUID();
-			saveName=uid.toString()+"_"+file.getOriginalFilename();
-			
-			File target=new File( uploadPath,saveName);
-			FileCopyUtils.copy(file.getBytes(), target);			
+			saveName = s3Uploader.upload(file, "upload");
 		}else {
 			saveName=request.getParameter("oldfile");
 		}
@@ -158,13 +148,6 @@ public class VolunteerController {
 	@GetMapping("/volunteer/delete")
 	public String volunteerDelete(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
-		String file = uploadPath + request.getParameter("file");
-		
-		File f = new File(file);
-		
-		if(f.exists()) {
-			f.delete();
-		}
 
 		volunteerService.deleteVolunteer(num);
 		

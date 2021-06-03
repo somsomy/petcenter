@@ -1,23 +1,18 @@
 package com.somsomy.controller;
 
-import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.somsomy.aws.S3Uploader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.somsomy.domain.AdoptBean;
@@ -26,7 +21,6 @@ import com.somsomy.domain.FindPageBean;
 import com.somsomy.domain.MemberBean;
 import com.somsomy.domain.PageBean;
 import com.somsomy.domain.ReviewBean;
-import com.somsomy.domain.VolunteerBean;
 import com.somsomy.service.AdoptService;
 import com.somsomy.service.CatsService;
 import com.somsomy.service.MemberService;
@@ -43,9 +37,8 @@ public class BoardController {
 	private CatsService catsService;
 	@Inject
 	private ReviewService reviewService;
-	
-	@Resource(name = "uploadPath")
-	private String uploadPath;
+	@Inject
+	private S3Uploader s3Uploader;
 
 	@GetMapping("/welcome")
 	public String welcome() {
@@ -199,9 +192,8 @@ public class BoardController {
 		rb.setContent(request.getParameter("content"));
 		
 		if(!file.getOriginalFilename().isEmpty()) {
-			saveName = uid.toString() + "_" + file.getOriginalFilename();
-			File target = new File(uploadPath,saveName);
-			FileCopyUtils.copy(file.getBytes(), target);
+			saveName = s3Uploader.upload(file, "upload");
+
 			rb.setFileRealName(saveName);
 		}
 		
@@ -213,7 +205,9 @@ public class BoardController {
 	@GetMapping("/adopt/review/content")
 	public String adoptReviewContent(HttpServletRequest request, HttpSession session, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
-		
+
+		reviewService.updateReadcount(num);
+
 		ReviewBean rb = reviewService.getReview(num);
 		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
 		
@@ -240,11 +234,7 @@ public class BoardController {
 		if(file.isEmpty()) {
 			saveName=request.getParameter("oldfile");
 		}else {
-			UUID uid=UUID.randomUUID();
-			saveName=uid.toString()+"_"+file.getOriginalFilename();
-			
-			File target=new File( uploadPath,saveName);
-			FileCopyUtils.copy(file.getBytes(), target);
+			saveName = s3Uploader.upload(file, "upload");
 		}
 		
 		ReviewBean rb = new ReviewBean();

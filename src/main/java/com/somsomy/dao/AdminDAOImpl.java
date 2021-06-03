@@ -46,6 +46,16 @@ public class AdminDAOImpl implements AdminDAO{
 	public void updateReadcount(int num) {
 		sqlSession.update(namespace + ".updateReadcount", num);
 	}
-	
-	
+
+	@Override
+	public void updateNotice(NoticeBean nb) {
+		sqlSession.update(namespace + ".updateNotice", nb);
+	}
+
+	@Override
+	public void deleteNotice(int num) {
+		sqlSession.delete(namespace + ".deleteNotice", num);
+	}
+
+
 }

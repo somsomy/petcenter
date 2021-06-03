@@ -30,7 +30,7 @@ $(document).ready(function(){
 		}
 		
 		$.ajax({
-			url: '/pet/member/update',
+			url: '/member/update',
 			type: 'POST',
 			data: {
 				id: $('.myPageid').val(),

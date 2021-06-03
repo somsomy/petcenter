@@ -59,4 +59,14 @@ public class AdminServiceImpl implements AdminService{
 		adminDAO.updateReadcount(num);
 	}
 
+	@Override
+	public void updateNotice(NoticeBean nb) {
+		adminDAO.updateNotice(nb);
+	}
+
+	@Override
+	public void deleteNotice(int num) {
+		adminDAO.deleteNotice(num);
+	}
+
 }

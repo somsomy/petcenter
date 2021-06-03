@@ -23,7 +23,7 @@ var content = '<div class="wrap">' +
             '        </div>' + 
             '        <div class="body">' + 
             '            <div class="img">' + 
-            '                <img src="/pet/resources/images/mapimg.png" width="73" height="70">' +
+            '                <img src="/images/mapimg.png" width="73" height="70">' +
             '           </div>' + 
             '            <div class="desc">' + 
             '                <div class="ellipsis">부산광역시 부산진구 부전동 동천로 109 7층 아이티윌 부산교육센터</div>' + 

@@ -35,8 +35,8 @@
 <input type="button" value="목록" class="writeBtn" onclick="location.href='<c:url value="/notice" />'">
 <c:if test="${! (empty sessionScope.id) }">
 	<c:if test="${sessionScope.id eq 'admin' }">
-		<input type="button" value="수정" class="writeBtn" onclick="location.href='noticeUpdateForm.jsp?num=${nb.num}'">
-		<input type="button" value="삭제" class="writeBtn" onclick="location.href='noticeDelete.jsp?num=${nb.num}'">
+		<input type="button" value="수정" class="writeBtn" onclick="location.href='<c:url value="/notice/update?num=${nb.num}" />'">
+		<input type="button" value="삭제" class="writeBtn" onclick="location.href='<c:url value="/notice/delete?num=${nb.num}" />'">
 	</c:if>
 </c:if>
 </div>
