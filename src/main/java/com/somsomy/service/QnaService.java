@@ -6,7 +6,7 @@ import com.somsomy.domain.PageBean;
 import com.somsomy.domain.QnaBean;
 
 public interface QnaService {
-	Integer getQnaCount();
+	Integer getQnaCount(String search);
 	List<QnaBean> getQnaList(PageBean pb);
 	void writeQna(QnaBean qb);
 	void updateReadcount(int parseInt);

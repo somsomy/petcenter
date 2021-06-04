@@ -25,7 +25,12 @@ public class CatsDAOImpl implements CatsDAO{
 
 	@Override
 	public Integer getCatCount() {
-		return sqlSession.selectOne(namespace + ".getCatCount");
+		return sqlSession.selectOne(namespace + ".getCount");
+	}
+
+	@Override
+	public Integer getCatCount(String search) {
+		return sqlSession.selectOne(namespace + ".getCatCount", search);
 	}
 
 	@Override
@@ -59,8 +64,8 @@ public class CatsDAOImpl implements CatsDAO{
 	}
 
 	@Override
-	public int getStateCatCount(String state) {
-		return sqlSession.selectOne(namespace + ".getStateCatCount", state);
+	public Integer getStateCatCount(FindPageBean pb) {
+		return sqlSession.selectOne(namespace + ".getStateCatCount", pb);
 	}
 
 	@Override

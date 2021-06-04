@@ -5,7 +5,7 @@ public class FindPageBean {
 	private int pageSize;
 	private String pageNum;
 	private int currentPage;
-	private int startRow ;
+	private int startRow;
 	private int endRow;
 	private int pageBlock;
 	private int startPage;
@@ -30,7 +30,7 @@ public class FindPageBean {
 		init();
 	}
 	public void init() {
-		pageBlock=15;
+		pageBlock=5;
 		startPage=((currentPage-1) /pageBlock)*pageBlock + 1;
 		endPage=startPage+pageBlock-1;
 		pageCount=count/pageSize+(count%pageSize==0?0:1);
@@ -110,6 +110,24 @@ public class FindPageBean {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "FindPageBean{" +
+				"count=" + count +
+				", pageSize=" + pageSize +
+				", pageNum='" + pageNum + '\'' +
+				", currentPage=" + currentPage +
+				", startRow=" + startRow +
+				", endRow=" + endRow +
+				", pageBlock=" + pageBlock +
+				", startPage=" + startPage +
+				", endPage=" + endPage +
+				", pageCount=" + pageCount +
+				", search='" + search + '\'' +
+				", num=" + num +
+				", id='" + id + '\'' +
+				", state='" + state + '\'' +
+				'}';
+	}
 }

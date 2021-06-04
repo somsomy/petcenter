@@ -22,22 +22,19 @@ public class MainController {
 	private CatsService catsService;
 
 	@GetMapping("/")
-	public String main(HttpServletRequest request, Model model) {
+	public String main(FindPageBean pb, Model model) {
 		
-		FindPageBean pb = new FindPageBean();
 		pb.setPageSize(5);
 		
-		if(request.getParameter("pageNum") == null) {
+		if(pb.getPageNum() == null) {
 			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
 		}
 		
 		pb.setState("protected");
-		pb.setCount(catsService.getStateCatCount(pb.getState()));
+		pb.setCount(catsService.getStateCatCount(pb));
 
 		List<CatsBean> cbList = catsService.getStateCatList(pb);
-		
+
 		model.addAttribute("pb", pb);
 		model.addAttribute("cbList", cbList);
 

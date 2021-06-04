@@ -5,7 +5,7 @@ public class PageBean {
 	private int pageSize;
 	private String pageNum;
 	private int currentPage;
-	private int startRow ;
+	private int startRow;
 	private int endRow;
 	private int pageBlock;
 	private int startPage;
@@ -27,7 +27,7 @@ public class PageBean {
 		init();
 	}
 	public void init() {
-		pageBlock=15;
+		pageBlock=5;
 		startPage=((currentPage-1) /pageBlock)*pageBlock + 1;
 		endPage=startPage+pageBlock-1;
 		pageCount=count/pageSize+(count%pageSize==0?0:1);

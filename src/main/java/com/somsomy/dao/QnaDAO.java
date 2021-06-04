@@ -7,7 +7,7 @@ import com.somsomy.domain.QnaBean;
 
 public interface QnaDAO {
 	
-	Integer getQnaCount();
+	Integer getQnaCount(String search);
 	List<QnaBean> getQnaList(PageBean pb);
 	Integer getMaxNum();
 	void writeQna(QnaBean qb);

@@ -32,6 +32,11 @@ public class CatsServiceImpl implements CatsService{
 	}
 
 	@Override
+	public Integer getCatCount(String search) {
+		return catsDAO.getCatCount(search);
+	}
+
+	@Override
 	public CatsBean findByCatId(int catId) {
 		return catsDAO.findByCatId(catId);
 	}
@@ -64,17 +69,18 @@ public class CatsServiceImpl implements CatsService{
 
 	@Override
 	public List<CatsBean> getStateCatList(FindPageBean pb) {
-		pb.setState(pb.getState().equals("protected") ? "보호중" : "입양완료");
+		pb.setState(pb.getState().equals("protected") || pb.getState().equals("보호중")? "보호중" : "입양완료");
 		
 		pb.setCurrentPage(Integer.parseInt(pb.getPageNum()));
-		pb.setStartRow((pb.getCurrentPage() - 1) * pb.getPageSize());	
+		pb.setStartRow((pb.getCurrentPage() - 1) * pb.getPageSize());
+
 		return catsDAO.getStateCatList(pb);
 	}
 
 	@Override
-	public int getStateCatCount(String state) {
-		state = state.equals("protected")  ? "보호중" : "입양완료";
-		return catsDAO.getStateCatCount(state);
+	public Integer getStateCatCount(FindPageBean pb) {
+		pb.setState(pb.getState().equals("protected") || pb.getState().equals("보호중") ? "보호중" : "입양완료");
+		return catsDAO.getStateCatCount(pb);
 	}
 
 	@Override

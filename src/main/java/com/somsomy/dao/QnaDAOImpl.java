@@ -18,8 +18,8 @@ public class QnaDAOImpl implements QnaDAO {
 	private static final String namespace="com.somsomy.mapper.QnaMapper";
 	
 	@Override
-	public Integer getQnaCount() {
-		return sqlSession.selectOne(namespace + ".getQnaCount");
+	public Integer getQnaCount(String search) {
+		return sqlSession.selectOne(namespace + ".getQnaCount", search);
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.somsomy.controller;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -28,270 +27,261 @@ import com.somsomy.service.ReviewService;
 
 @Controller
 public class BoardController {
-	
-	@Inject
-	private AdoptService adoptService;
-	@Inject
-	private MemberService memberService;
-	@Inject
-	private CatsService catsService;
-	@Inject
-	private ReviewService reviewService;
-	@Inject
-	private S3Uploader s3Uploader;
 
-	@GetMapping("/welcome")
-	public String welcome() {
-		
-		return "petcenter/welcome";
-	}
-	
-	@GetMapping("/map")
-	public String map() {
-		
-		return "petcenter/map";
-	}
-	
-	@GetMapping("/adopt/info")
-	public String adoptInfo() {
-		
-		return "adopt/adoptInfo";
-	}
+  @Inject
+  private AdoptService adoptService;
+  @Inject
+  private MemberService memberService;
+  @Inject
+  private CatsService catsService;
+  @Inject
+  private ReviewService reviewService;
+  @Inject
+  private S3Uploader s3Uploader;
 
-	@GetMapping("/adopt")
-	public String adopt(HttpServletRequest request, Model model) {
-		
-		PageBean pb = new PageBean();
-		pb.setPageSize(10);
-		
-		if(request.getParameter("pageNum") == null) {
-			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
-		}
-		
-		pb.setCount(adoptService.getAdoptCount());
-		
-		List<AdoptBean> abList = adoptService.getBoardList(pb);
-		
-		model.addAttribute("pb", pb);
-		model.addAttribute("abList", abList);
+  @GetMapping("/welcome")
+  public String welcome() {
 
-		return "adopt/adopt";
-	}
+    return "petcenter/welcome";
+  }
 
-	@GetMapping("/adopt/write")
-	public String adoptWrite(HttpSession session, Model model) {
-		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
-		PageBean pb = new PageBean();
-		pb.setPageNum("1");
-		pb.setPageSize(catsService.getCatCount());
+  @GetMapping("/map")
+  public String map() {
 
-		List<CatsBean> cbList = catsService.getCatList(pb);
-		
-		model.addAttribute("mb", mb);
-		model.addAttribute("cbList", cbList);
-		
-		return "adopt/adoptWrite";
-	}
+    return "petcenter/map";
+  }
 
-	@PostMapping("/adopt/write")
-	public String adoptWritePost(AdoptBean ab) {
-		
-		adoptService.writeAdopt(ab);
-		
-		return "redirect:/adopt";
-	}
-	
-	@GetMapping("/adopt/content")
-	public String adoptContent(HttpServletRequest request, HttpSession session, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
-		
-		adoptService.updateReadcount(num);
-		AdoptBean ab = adoptService.getAdopt(num);
-		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
-		
-		model.addAttribute("ab", ab);
-		model.addAttribute("mb", mb);
+  @GetMapping("/adopt/info")
+  public String adoptInfo() {
 
-		return "adopt/adoptContent";
-	}
+    return "adopt/adoptInfo";
+  }
 
-	@GetMapping("/adopt/update")
-	public String adoptUpdate(HttpServletRequest request, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
-		AdoptBean ab = adoptService.getAdopt(num);
-		PageBean pb = new PageBean();
-		pb.setPageNum("1");
-		pb.setPageSize(catsService.getCatCount());
+  @GetMapping("/adopt")
+  public String adopt(PageBean pb, Model model) {
 
-		List<CatsBean> cbList = catsService.getCatList(pb);
-		
-		model.addAttribute("ab", ab);
-		model.addAttribute("cbList", cbList);
+    pb.setPageSize(10);
 
-		return "adopt/adoptUpdate";
-	}
+    if (pb.getPageNum() == null) {
+      pb.setPageNum("1");
+    }
 
-	@PostMapping("/adopt/update")
-	public String adoptUpdatePost(AdoptBean ab) {
-		
-		adoptService.updateAdopt(ab);
-		
-		return "redirect:/adopt";
-	}
+    pb.setCount(adoptService.getAdoptCount(pb.getSearch()));
 
-	@GetMapping("/adopt/delete")
-	public String adoptDelete(HttpServletRequest request) {
-		int num = Integer.parseInt(request.getParameter("num"));
+    List<AdoptBean> abList = adoptService.getBoardList(pb);
 
-		adoptService.deleteAdopt(num);
-		
-		return "redirect:/adopt";
-	}
-	
-	@GetMapping("/adopt/review")
-	public String adoptReview(HttpServletRequest request, Model model) {
-		
-		PageBean pb = new PageBean();
-		pb.setPageSize(10);
-		
-		if(request.getParameter("pageNum") == null) {
-			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
-		}
-		
-		pb.setCount(reviewService.getReviewCount());
-		
-		List<ReviewBean> rbList = reviewService.getReviewList(pb);
-		
-		model.addAttribute("pb", pb);
-		model.addAttribute("rbList", rbList);
-		
-		return "adopt/review";
-	}
+    model.addAttribute("pb", pb);
+    model.addAttribute("abList", abList);
 
-	@GetMapping("/adopt/review/write")
-	public String adoptReviewWrite(HttpSession session, Model model) {
-		
-		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
-		
-		model.addAttribute("mb", mb);
-		return "adopt/reviewWrite";
-	}
+    return "adopt/adopt";
+  }
 
-	@PostMapping("/adopt/review/write")
-	public String adoptReviewWritePost(HttpServletRequest request, MultipartFile file) throws Exception{
-		UUID uid = UUID.randomUUID();
-		String saveName = null;
-		
-		ReviewBean rb = new ReviewBean();
-		rb.setName(request.getParameter("name"));
-		rb.setSubject(request.getParameter("subject"));
-		rb.setContent(request.getParameter("content"));
-		
-		if(!file.getOriginalFilename().isEmpty()) {
-			saveName = s3Uploader.upload(file, "upload");
+  @GetMapping("/adopt/write")
+  public String adoptWrite(HttpSession session, Model model) {
+    MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
+    PageBean pb = new PageBean();
+    pb.setPageNum("1");
+    pb.setPageSize(catsService.getCatCount());
 
-			rb.setFileRealName(saveName);
-		}
-		
-		reviewService.writeReview(rb);
-		
-		return "redirect:/adopt/review";
-	}
+    List<CatsBean> cbList = catsService.getCatList(pb);
 
-	@GetMapping("/adopt/review/content")
-	public String adoptReviewContent(HttpServletRequest request, HttpSession session, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
+    model.addAttribute("mb", mb);
+    model.addAttribute("cbList", cbList);
 
-		reviewService.updateReadcount(num);
+    return "adopt/adoptWrite";
+  }
 
-		ReviewBean rb = reviewService.getReview(num);
-		MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
-		
-		model.addAttribute("mb", mb);
-		model.addAttribute("rb", rb);
-		
-		return "adopt/reviewContent";
-	}
+  @PostMapping("/adopt/write")
+  public String adoptWritePost(AdoptBean ab) {
 
-	@GetMapping("/adopt/review/update")
-	public String adoptReviewUpdate(HttpServletRequest request, HttpSession session, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
-		
-		ReviewBean rb = reviewService.getReview(num);
-		
-		model.addAttribute("rb", rb);
-		return "adopt/reviewUpdate";
-	}
+    adoptService.writeAdopt(ab);
 
-	@PostMapping("/adopt/review/update")
-	public String adoptReviewUpdatePost(HttpServletRequest request, MultipartFile file) throws Exception{
-		String saveName = null;
-		
-		if(file.isEmpty()) {
-			saveName=request.getParameter("oldfile");
-		}else {
-			saveName = s3Uploader.upload(file, "upload");
-		}
-		
-		ReviewBean rb = new ReviewBean();
-		rb.setNum(Integer.parseInt(request.getParameter("num")));
-		rb.setSubject(request.getParameter("subject"));
-		rb.setContent(request.getParameter("content"));
-		rb.setFileRealName(saveName);
-		
-		reviewService.updateReview(rb);
-		
-		return "redirect:/adopt/review";
-	}
+    return "redirect:/adopt";
+  }
 
-	@GetMapping("/adopt/review/delete")
-	public String adoptReviewDelete(HttpServletRequest request) {
-		int num = Integer.parseInt(request.getParameter("num"));
+  @GetMapping("/adopt/content")
+  public String adoptContent(HttpServletRequest request, HttpSession session, Model model) {
+    int num = Integer.parseInt(request.getParameter("num"));
 
-		reviewService.deleteReview(num);
-		
-		return "redirect:/adopt/review";
-	}
+    adoptService.updateReadcount(num);
+    AdoptBean ab = adoptService.getAdopt(num);
+    MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
 
-	@GetMapping("/cats")
-	public String protectedCats(HttpServletRequest request, Model model) {
-		
-		String state = request.getParameter("state");
-		
-		FindPageBean pb = new FindPageBean();
-		pb.setPageSize(9);
-		
-		if(request.getParameter("pageNum") == null) {
-			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
-		}
-		
-		pb.setCount(catsService.getStateCatCount(state));
-		pb.setState(state);
-		
-		List<CatsBean> cbList = catsService.getStateCatList(pb);
-		
-		model.addAttribute("pb", pb);
-		model.addAttribute("cbList", cbList);
-		
-		return "adopt/cats";
-	}
+    model.addAttribute("ab", ab);
+    model.addAttribute("mb", mb);
 
-	@GetMapping("/cats/content")
-	public String catsContent(HttpServletRequest request, HttpSession session, Model model) {
-		int catId = Integer.parseInt(request.getParameter("catId"));
-		
-		catsService.updateReadcount(catId);
-		CatsBean cb = catsService.findByCatId(catId);
-		
-		model.addAttribute("cb", cb);
-		
-		return "adopt/catsContent";
-	}
-	
+    return "adopt/adoptContent";
+  }
+
+  @GetMapping("/adopt/update")
+  public String adoptUpdate(HttpServletRequest request, Model model) {
+    int num = Integer.parseInt(request.getParameter("num"));
+    AdoptBean ab = adoptService.getAdopt(num);
+    PageBean pb = new PageBean();
+    pb.setPageNum("1");
+    pb.setPageSize(catsService.getCatCount());
+
+    List<CatsBean> cbList = catsService.getCatList(pb);
+
+    model.addAttribute("ab", ab);
+    model.addAttribute("cbList", cbList);
+
+    return "adopt/adoptUpdate";
+  }
+
+  @PostMapping("/adopt/update")
+  public String adoptUpdatePost(AdoptBean ab) {
+
+    adoptService.updateAdopt(ab);
+
+    return "redirect:/adopt";
+  }
+
+  @GetMapping("/adopt/delete")
+  public String adoptDelete(HttpServletRequest request) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    adoptService.deleteAdopt(num);
+
+    return "redirect:/adopt";
+  }
+
+  @GetMapping("/adopt/review")
+  public String adoptReview(HttpServletRequest request, Model model) {
+
+    PageBean pb = new PageBean();
+    pb.setPageSize(10);
+
+    if (request.getParameter("pageNum") == null) {
+      pb.setPageNum("1");
+    } else {
+      pb.setPageNum(request.getParameter("pageNum"));
+    }
+
+    pb.setCount(reviewService.getReviewCount());
+
+    List<ReviewBean> rbList = reviewService.getReviewList(pb);
+
+    model.addAttribute("pb", pb);
+    model.addAttribute("rbList", rbList);
+
+    return "adopt/review";
+  }
+
+  @GetMapping("/adopt/review/write")
+  public String adoptReviewWrite(HttpSession session, Model model) {
+
+    MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
+
+    model.addAttribute("mb", mb);
+    return "adopt/reviewWrite";
+  }
+
+  @PostMapping("/adopt/review/write")
+  public String adoptReviewWritePost(HttpServletRequest request, MultipartFile file) throws Exception {
+    UUID uid = UUID.randomUUID();
+    String saveName = null;
+
+    ReviewBean rb = new ReviewBean();
+    rb.setName(request.getParameter("name"));
+    rb.setSubject(request.getParameter("subject"));
+    rb.setContent(request.getParameter("content"));
+
+    if (!file.getOriginalFilename().isEmpty()) {
+      saveName = s3Uploader.upload(file, "upload");
+
+      rb.setFileRealName(saveName);
+    }
+
+    reviewService.writeReview(rb);
+
+    return "redirect:/adopt/review";
+  }
+
+  @GetMapping("/adopt/review/content")
+  public String adoptReviewContent(HttpServletRequest request, HttpSession session, Model model) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    reviewService.updateReadcount(num);
+
+    ReviewBean rb = reviewService.getReview(num);
+    MemberBean mb = memberService.getMember((String) session.getAttribute("id"));
+
+    model.addAttribute("mb", mb);
+    model.addAttribute("rb", rb);
+
+    return "adopt/reviewContent";
+  }
+
+  @GetMapping("/adopt/review/update")
+  public String adoptReviewUpdate(HttpServletRequest request, HttpSession session, Model model) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    ReviewBean rb = reviewService.getReview(num);
+
+    model.addAttribute("rb", rb);
+    return "adopt/reviewUpdate";
+  }
+
+  @PostMapping("/adopt/review/update")
+  public String adoptReviewUpdatePost(HttpServletRequest request, MultipartFile file) throws Exception {
+    String saveName = null;
+
+    if (file.isEmpty()) {
+      saveName = request.getParameter("oldfile");
+    } else {
+      saveName = s3Uploader.upload(file, "upload");
+    }
+
+    ReviewBean rb = new ReviewBean();
+    rb.setNum(Integer.parseInt(request.getParameter("num")));
+    rb.setSubject(request.getParameter("subject"));
+    rb.setContent(request.getParameter("content"));
+    rb.setFileRealName(saveName);
+
+    reviewService.updateReview(rb);
+
+    return "redirect:/adopt/review";
+  }
+
+  @GetMapping("/adopt/review/delete")
+  public String adoptReviewDelete(HttpServletRequest request) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    reviewService.deleteReview(num);
+
+    return "redirect:/adopt/review";
+  }
+
+  @GetMapping("/cats")
+  public String protectedCats(FindPageBean pb, Model model) {
+
+    pb.setPageSize(9);
+
+    if (pb.getPageNum() == null) {
+      pb.setPageNum("1");
+    }
+
+    pb.setCount(catsService.getStateCatCount(pb));
+
+    List<CatsBean> cbList = catsService.getStateCatList(pb);
+
+    model.addAttribute("pb", pb);
+    model.addAttribute("cbList", cbList);
+
+    return "adopt/cats";
+  }
+
+  @GetMapping("/cats/content")
+  public String catsContent(HttpServletRequest request, HttpSession session, Model model) {
+    int catId = Integer.parseInt(request.getParameter("catId"));
+
+    catsService.updateReadcount(catId);
+    CatsBean cb = catsService.findByCatId(catId);
+
+    model.addAttribute("cb", cb);
+
+    return "adopt/catsContent";
+  }
+
 }

@@ -32,18 +32,15 @@ public class SupportController {
 	private MemberService memberService;
 
 	@GetMapping("/support")
-	public String support(HttpServletRequest request, Model model) {
+	public String support(PageBean pb, Model model) {
 		
-		PageBean pb = new PageBean();
 		pb.setPageSize(10);
 		
-		if(request.getParameter("pageNum") == null) {
+		if(pb.getPageNum() == null) {
 			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
 		}
 		
-		pb.setCount(catsService.getCatCount());
+		pb.setCount(catsService.getCatCount(pb.getSearch()));
 		
 		List<CatsBean> cbList = catsService.getCatList(pb);
 		

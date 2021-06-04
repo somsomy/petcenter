@@ -9,7 +9,7 @@ import com.somsomy.domain.VolunteerReplyBean;
 
 public interface VolunteerDAO {
 
-	Integer getVolunteerCount();
+	Integer getVolunteerCount(String search);
 
 	List<VolunteerBean> getVolunteerList(PageBean pb);
 

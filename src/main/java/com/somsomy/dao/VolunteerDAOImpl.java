@@ -20,8 +20,8 @@ public class VolunteerDAOImpl implements VolunteerDAO {
 	private static final String namespace="com.somsomy.mapper.VolunteerMapper";
 
 	@Override
-	public Integer getVolunteerCount() {
-		return sqlSession.selectOne(namespace + ".getVolunteerCount");
+	public Integer getVolunteerCount(String search) {
+		return sqlSession.selectOne(namespace + ".getVolunteerCount", search);
 	}
 
 	@Override

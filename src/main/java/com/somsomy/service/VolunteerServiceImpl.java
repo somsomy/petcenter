@@ -22,8 +22,8 @@ public class VolunteerServiceImpl implements VolunteerService {
 	private VolunteerDAO volunteerDAO;
 
 	@Override
-	public Integer getVolunteerCount() {
-		return volunteerDAO.getVolunteerCount();
+	public Integer getVolunteerCount(String search) {
+		return volunteerDAO.getVolunteerCount(search);
 	}
 
 	@Override

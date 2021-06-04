@@ -33,18 +33,15 @@ public class VolunteerController {
 	private S3Uploader s3Uploader;
 
 	@GetMapping("/volunteer")
-	public String volunteer(HttpServletRequest request, Model model) {
+	public String volunteer(PageBean pb, Model model) {
 		
-		PageBean pb = new PageBean();
 		pb.setPageSize(15);
 		
-		if(request.getParameter("pageNum") == null) {
+		if(pb.getPageNum() == null) {
 			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
 		}
 		
-		pb.setCount(volunteerService.getVolunteerCount());
+		pb.setCount(volunteerService.getVolunteerCount(pb.getSearch()));
 		
 		List<VolunteerBean> vbList = volunteerService.getVolunteerList(pb);
 		

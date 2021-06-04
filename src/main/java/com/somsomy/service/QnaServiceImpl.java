@@ -18,8 +18,8 @@ public class QnaServiceImpl implements QnaService {
 	private QnaDAO qnaDAO;
 
 	@Override
-	public Integer getQnaCount() {
-		return qnaDAO.getQnaCount();
+	public Integer getQnaCount(String search) {
+		return qnaDAO.getQnaCount(search);
 	}
 
 	@Override

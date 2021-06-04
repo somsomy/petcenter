@@ -19,116 +19,113 @@ import com.somsomy.service.QnaService;
 
 @Controller
 public class QnaController {
-	
-	@Inject
-	private QnaService qnaService;
-	@Inject
-	private MemberService memberService;
 
-	@GetMapping("/qna")
-	public String qna(HttpServletRequest request, Model model) {
-		PageBean pb = new PageBean();
-		pb.setPageSize(15);
-		
-		if(request.getParameter("pageNum") == null) {
-			pb.setPageNum("1");
-		}else {
-			pb.setPageNum(request.getParameter("pageNum"));
-		}
-		
-		pb.setCount(qnaService.getQnaCount());
-		
-		List<QnaBean> qbList = qnaService.getQnaList(pb);
-		
-		model.addAttribute("pb", pb);
-		model.addAttribute("qbList", qbList);
-		
-		return "qna/qna";
-	}
+  @Inject
+  private QnaService qnaService;
+  @Inject
+  private MemberService memberService;
 
-	@GetMapping("/qna/write")
-	public String qnaWrite(HttpSession session, Model model) {
-		String id = (String) session.getAttribute("id");
-		
-		if(id == null) {
-			return "member/login";
-		} else {
-			MemberBean mb = memberService.getMember(id);
-			model.addAttribute("nick", mb.getNick());		
-			return "qna/qnaWrite";
-		}
-	}
+  @GetMapping("/qna")
+  public String qna(PageBean pb, Model model) {
+    pb.setPageSize(15);
 
-	@PostMapping("/qna/write")
-	public String qnaWritePost(QnaBean qb, Model model) {
+    if (pb.getPageNum() == null) {
+      pb.setPageNum("1");
+    }
 
-		qnaService.writeQna(qb);
-		
-		return "redirect:/qna";
-	}
+    pb.setCount(qnaService.getQnaCount(pb.getSearch()));
 
-	@GetMapping("/qna/content")
-	public String qnaContent(HttpServletRequest request, HttpSession session, Model model) {
-		
-		int num = Integer.parseInt(request.getParameter("num"));
-		String id = (String) session.getAttribute("id");
-		
-		qnaService.updateReadcount(num);	
-		
-		QnaBean qb = qnaService.getQna(num);
-		model.addAttribute("qb", qb);
-		
-		if(id != null) {
-			MemberBean mb = memberService.getMember(id);
-			model.addAttribute("nick", mb.getNick());					
-		}
+    List<QnaBean> qbList = qnaService.getQnaList(pb);
 
-		return "qna/qnaContent";
-	}
+    model.addAttribute("pb", pb);
+    model.addAttribute("qbList", qbList);
 
-	@PostMapping("/qna/update")
-	public String qnaUpdatePost(QnaBean qb) {
-		
-		qnaService.updateQna(qb);
-		
-		return "redirect:/qna";
-	}
+    return "qna/qna";
+  }
 
-	@GetMapping("/qna/update")
-	public String qnaUpdate(HttpServletRequest request, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
+  @GetMapping("/qna/write")
+  public String qnaWrite(HttpSession session, Model model) {
+    String id = (String) session.getAttribute("id");
 
-		QnaBean qb = qnaService.getQna(num);
-		model.addAttribute("qb", qb);
-		
-		return "qna/qnaUpdate";
-	}
+    if (id == null) {
+      return "member/login";
+    } else {
+      MemberBean mb = memberService.getMember(id);
+      model.addAttribute("nick", mb.getNick());
+      return "qna/qnaWrite";
+    }
+  }
 
-	@GetMapping("/qna/delete")
-	public String qnaDelete(HttpServletRequest request) {
-		int num = Integer.parseInt(request.getParameter("num"));
+  @PostMapping("/qna/write")
+  public String qnaWritePost(QnaBean qb, Model model) {
 
-		qnaService.deleteQna(num);
-		
-		return "redirect:/qna";
-	}
+    qnaService.writeQna(qb);
 
-	@GetMapping("/qna/reply")
-	public String qnaReply(HttpServletRequest request, Model model) {
-		int num = Integer.parseInt(request.getParameter("num"));
+    return "redirect:/qna";
+  }
 
-		QnaBean qb = qnaService.getQna(num);
-		model.addAttribute("qb", qb);
-		return "qna/qnaReply";
-	}
+  @GetMapping("/qna/content")
+  public String qnaContent(HttpServletRequest request, HttpSession session, Model model) {
 
-	@PostMapping("/qna/reply")
-	public String qnaReplyPost(QnaBean qb) {
-		
-		qnaService.reWriteQna(qb);
-		
-		return "redirect:/qna";
-	}
-	
-	
+    int num = Integer.parseInt(request.getParameter("num"));
+    String id = (String) session.getAttribute("id");
+
+    qnaService.updateReadcount(num);
+
+    QnaBean qb = qnaService.getQna(num);
+    model.addAttribute("qb", qb);
+
+    if (id != null) {
+      MemberBean mb = memberService.getMember(id);
+      model.addAttribute("nick", mb.getNick());
+    }
+
+    return "qna/qnaContent";
+  }
+
+  @PostMapping("/qna/update")
+  public String qnaUpdatePost(QnaBean qb) {
+
+    qnaService.updateQna(qb);
+
+    return "redirect:/qna";
+  }
+
+  @GetMapping("/qna/update")
+  public String qnaUpdate(HttpServletRequest request, Model model) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    QnaBean qb = qnaService.getQna(num);
+    model.addAttribute("qb", qb);
+
+    return "qna/qnaUpdate";
+  }
+
+  @GetMapping("/qna/delete")
+  public String qnaDelete(HttpServletRequest request) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    qnaService.deleteQna(num);
+
+    return "redirect:/qna";
+  }
+
+  @GetMapping("/qna/reply")
+  public String qnaReply(HttpServletRequest request, Model model) {
+    int num = Integer.parseInt(request.getParameter("num"));
+
+    QnaBean qb = qnaService.getQna(num);
+    model.addAttribute("qb", qb);
+    return "qna/qnaReply";
+  }
+
+  @PostMapping("/qna/reply")
+  public String qnaReplyPost(QnaBean qb) {
+
+    qnaService.reWriteQna(qb);
+
+    return "redirect:/qna";
+  }
+
+
 }

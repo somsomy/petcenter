@@ -28,6 +28,11 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
+	public Integer getNoticeCount(String search) {
+		return sqlSession.selectOne(namespace + ".getNoticeCount", search);
+	}
+
+	@Override
 	public Integer getMaxNum() {
 		return sqlSession.selectOne(namespace + ".getMaxNum");
 	}

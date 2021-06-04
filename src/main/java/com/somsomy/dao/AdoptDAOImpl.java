@@ -52,8 +52,8 @@ public class AdoptDAOImpl implements AdoptDAO {
 	}
 
 	@Override
-	public Integer getAdoptCount() {
-		return sqlSession.selectOne(namespace + ".getAdoptCount");
+	public Integer getAdoptCount(String search) {
+		return sqlSession.selectOne(namespace + ".getAdoptCount", search);
 	}
 
 }

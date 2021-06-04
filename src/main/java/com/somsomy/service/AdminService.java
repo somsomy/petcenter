@@ -7,7 +7,7 @@ import com.somsomy.domain.PageBean;
 
 public interface AdminService {
 	public List<NoticeBean> getNoticeList(PageBean pb);
-	public Integer getNoticeCount();
+	public Integer getNoticeCount(String search);
 	public Integer getMaxNum();
 	public void writeNotice(NoticeBean nb);
 	public NoticeBean getNotice(int num);

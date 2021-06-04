@@ -26,8 +26,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public Integer getNoticeCount() {
-		return adminDAO.getNoticeCount();
+	public Integer getNoticeCount(String search) {
+		return adminDAO.getNoticeCount(search);
 	}
 
 	@Override

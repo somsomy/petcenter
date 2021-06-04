@@ -1,49 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper 
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.somsomy.mapper.CatsMapper">
 
-	<select id="getCatList" resultType="com.somsomy.domain.CatsBean">
-		select * from cats order by catid desc limit #{startRow}, #{pageSize}
-	</select>
-	
-	<select id="getCatCount" resultType="java.lang.Integer">
-		select count(*) from cats
-	</select>
-	
-	<select id="getStateCatCount" resultType="java.lang.Integer">
-		select count(*) from cats where cating=#{state}
-	</select>
-	
-	<select id="findByCatId" resultType="com.somsomy.domain.CatsBean">
-		select * from cats where catid=#{catId}
-	</select>
-	
-	<select id="getMaxCatId" resultType="java.lang.Integer">
-		select max(catid) from cats
-	</select>
-	
-	<insert id="registerCat">
-		insert into cats
-		values(#{catId}, #{catName}, #{catAge}, #{catGender}, #{catNeuter}, #{catDate}, #{catVaccination}, #{catIng}, #{catInfo}, #{fileName}, #{fileRealName}, #{date}, #{readcount})
-	</insert>
+  <select id="getCatList" resultType="com.somsomy.domain.CatsBean">
+    select *
+    from cats
+    <if test="search != null">
+      where catname like CONCAT('%',#{search},'%')
+    </if>
+    order by catid desc limit #{startRow}, #{pageSize}
+  </select>
 
-	<update id="updateCat">
-		update cats set catname=#{catName}, catage=#{catAge}, catgender=#{catGender}, catneuter=#{catNeuter}, catdate=#{catDate}, catvaccination=#{catVaccination}, cating=#{catIng}, catinfo=#{catInfo}, filerealname=#{fileRealName}
-		where catid=#{catId}
-	</update>
-	
-	<delete id="deleteCat">
-		delete from cats where catid=#{catId}
-	</delete>
-	
-	<select id="getStateCatList" resultType="com.somsomy.domain.CatsBean">
-		select * from cats where cating=#{state} order by catid desc limit #{startRow}, #{pageSize}
-	</select>
-	
-	<update id="updateReadcount">
-		update cats set readcount=readcount+1 where catid=#{catId}
-	</update>
+  <select id="getCatCount" resultType="java.lang.Integer">
+    select count(*)
+    from cats
+    <if test="search != null">
+      where catname like CONCAT('%',#{search},'%')
+    </if>
+  </select>
+
+  <select id="getCount" resultType="java.lang.Integer">
+    select count(*)
+    from cats
+  </select>
+
+  <select id="getStateCatCount" resultType="java.lang.Integer">
+    select count(*) from cats where cating=#{state}
+    <if test="search != null">
+      and catname like CONCAT('%',#{search},'%')
+    </if>
+  </select>
+
+  <select id="findByCatId" resultType="com.somsomy.domain.CatsBean">
+    select *
+    from cats
+    where catid = #{catId}
+  </select>
+
+  <select id="getMaxCatId" resultType="java.lang.Integer">
+    select max(catid)
+    from cats
+  </select>
+
+  <insert id="registerCat">
+    insert into cats
+    values (#{catId}, #{catName}, #{catAge}, #{catGender}, #{catNeuter}, #{catDate}, #{catVaccination}, #{catIng},
+            #{catInfo}, #{fileName}, #{fileRealName}, #{date}, #{readcount})
+  </insert>
+
+  <update id="updateCat">
+    update cats
+    set catname=#{catName},
+        catage=#{catAge},
+        catgender=#{catGender},
+        catneuter=#{catNeuter},
+        catdate=#{catDate},
+        catvaccination=#{catVaccination},
+        cating=#{catIng},
+        catinfo=#{catInfo},
+        filerealname=#{fileRealName}
+    where catid = #{catId}
+  </update>
+
+  <delete id="deleteCat">
+    delete
+    from cats
+    where catid = #{catId}
+  </delete>
+
+  <select id="getStateCatList" resultType="com.somsomy.domain.CatsBean">
+    select *
+    from cats
+    where cating = #{state}
+    <if test="search != null">
+			and catname like CONCAT('%',#{search},'%')
+		</if>
+    order by catid desc limit #{startRow}, #{pageSize}
+  </select>
+
+  <update id="updateReadcount">
+    update cats
+    set readcount=readcount + 1
+    where catid = #{catId}
+  </update>
 </mapper>
