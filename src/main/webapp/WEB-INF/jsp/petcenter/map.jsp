@@ -10,7 +10,7 @@
 <link href='<c:url value="/css/subpage.css" />' rel="stylesheet" type="text/css">
 <link href='<c:url value="/css/map.css" />' rel="stylesheet" type="text/css">
 
- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b912d2e51405cf5bb1df8bfaa345a2f0"></script>
+ <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4b6f94ee1b409c7fd3e0b9e00d65633d"></script>
  <script defer src='<c:url value="/script/map.js" />'></script>
  
 </head>
