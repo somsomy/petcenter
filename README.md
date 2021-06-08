@@ -55,7 +55,7 @@ JSP 프로젝트 : https://github.com/somsomy/JSP-project
 - 마이페이지
   - Ajax를 이용한 회원정보 수정 처리
 
-<img src="https://user-images.githubusercontent.com/78060557/121213230-04cd4b00-c8b9-11eb-83bd-49d2aa0bad66.gif" alt="22222" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/78060557/121213230-04cd4b00-c8b9-11eb-83bd-49d2aa0bad66.gif" alt="22222" width="400" />
 
 
 
@@ -85,7 +85,7 @@ JSP 프로젝트 : https://github.com/somsomy/JSP-project
   - Ajax를 이용하여 댓글 등록, 수정, 삭제 
   - 게시글과 댓글 페이징
 
-<img src="https://user-images.githubusercontent.com/78060557/121213454-30e8cc00-c8b9-11eb-8641-6904f6b500a5.gif" alt="33333" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/78060557/121213454-30e8cc00-c8b9-11eb-8641-6904f6b500a5.gif" alt="33333" width="500" />
 
 - 문의 게시판
   - 관리자 계정으로 게시글 등록 가능
