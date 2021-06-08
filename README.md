@@ -47,15 +47,15 @@ JSP 프로젝트 : https://github.com/somsomy/JSP-project
   - 우편번호 검색 API 활용하여 주소 입력
   - Ajax 로 아이디와 닉네임 중복 확인
 
-|                              전                              |                      후                      |
-| :----------------------------------------------------------: | :------------------------------------------: |
-|            새 창을 띄워 아이디와 닉네임 중복확인             |  중복확인 버튼 클릭 시 Ajax로 중복여부 확인  |
-| ![image-20210608231906455](C:\Users\yun07\AppData\Roaming\Typora\typora-user-images\image-20210608231906455.png) | ![111111](C:\Users\yun07\Desktop\111111.gif) |
+|                              전                              |                              후                              |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
+|            새 창을 띄워 아이디와 닉네임 중복확인             |          중복확인 버튼 클릭 시 Ajax로 중복여부 확인          |
+| ![전](https://user-images.githubusercontent.com/78060557/121213135-f0894e00-c8b8-11eb-8efe-de2f1c7ea36b.png) | ![111111](https://user-images.githubusercontent.com/78060557/121212973-c899ea80-c8b8-11eb-8d4e-16d9761a7c28.gif) |
 
 - 마이페이지
   - Ajax를 이용한 회원정보 수정 처리
 
-<img src="C:\Users\yun07\Desktop\22222.gif" alt="22222" style="zoom: 50%;" />
+<img src="https://user-images.githubusercontent.com/78060557/121213230-04cd4b00-c8b9-11eb-83bd-49d2aa0bad66.gif" alt="22222" style="zoom:50%;" />
 
 
 
@@ -73,7 +73,7 @@ JSP 프로젝트 : https://github.com/somsomy/JSP-project
   - 동적 쿼리를 이용한 게시글 제목 검색 기능
   - 페이징
 
-![image-20210608233723082](C:\Users\yun07\AppData\Roaming\Typora\typora-user-images\image-20210608233723082.png)
+![문의](https://user-images.githubusercontent.com/78060557/121213372-1f9fbf80-c8b9-11eb-821e-271ab5fecc57.png)
 
 
 
@@ -85,13 +85,13 @@ JSP 프로젝트 : https://github.com/somsomy/JSP-project
   - Ajax를 이용하여 댓글 등록, 수정, 삭제 
   - 게시글과 댓글 페이징
 
-<img src="C:\Users\yun07\Desktop\33333.gif" alt="33333" style="zoom:50%;" />
+<img src="https://user-images.githubusercontent.com/78060557/121213454-30e8cc00-c8b9-11eb-8641-6904f6b500a5.gif" alt="33333" style="zoom:50%;" />
 
 - 문의 게시판
   - 관리자 계정으로 게시글 등록 가능
   - 가입한 회원이 로그인 시 문의글 작성 가능
 
-![image-20210609001434044](C:\Users\yun07\AppData\Roaming\Typora\typora-user-images\image-20210609001434044.png)
+![큐앤](https://user-images.githubusercontent.com/78060557/121213547-48c05000-c8b9-11eb-8c64-6374dcecff5c.png)
 
 ###### 관리자
 
