@@ -32,17 +32,17 @@ public class SupportController {
 	private MemberService memberService;
 
 	@GetMapping("/support")
-	public String support(PageBean pb, Model model) {
+	public String support(FindPageBean pb, Model model) {
 		
 		pb.setPageSize(10);
 		
 		if(pb.getPageNum() == null) {
 			pb.setPageNum("1");
 		}
+		pb.setState("protected");
+		pb.setCount(catsService.getStateCatCount(pb));
 		
-		pb.setCount(catsService.getCatCount(pb.getSearch()));
-		
-		List<CatsBean> cbList = catsService.getCatList(pb);
+		List<CatsBean> cbList = catsService.getStateCatList(pb);
 		
 		model.addAttribute("pb", pb);
 		model.addAttribute("cbList", cbList);
